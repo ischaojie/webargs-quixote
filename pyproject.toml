@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "webargs-quixote"
-version = "0.1.0"
+version = "0.1.1"
 description = "webargs support for quixote"
 authors = ["ischaojie <zhuzhezhe95@gmail.com>"]
 license = "MIT"
