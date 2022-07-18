@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 from io import BytesIO
 
-from webargs.core import Parser, is_json, missing, parse_json
 from quixote.http_request import HTTPRequest
 from quixote.upload import Upload
+from webargs.core import Parser, is_json, missing, parse_json
 
 
 def is_json_request(req):
@@ -19,7 +19,7 @@ class QuixoteParser(Parser):
     def _raw_load_json(self, req):
         if not is_json_request(req):
             return missing
-        length = max(0, int(req.environ.get("CONTENT_LENGTH", '0')))
+        length = max(0, int(req.environ.get("CONTENT_LENGTH", "0")))
         raw_json = req.stdin.read(length)
         return parse_json(raw_json)
 
@@ -30,8 +30,9 @@ class QuixoteParser(Parser):
         return self._makeproxy(req.form, schema)
 
     def load_headers(self, req, schema):
-        req_headers = {k: v for k, v in req.environ.items() if k.startswith("HTTP_")}
-        print(req_headers)
+        req_headers = {
+            k: v for k, v in req.environ.items() if k.startswith("HTTP_")
+        }
         return self._makeproxy(req_headers, schema)
 
     def load_cookies(self, req, schema):

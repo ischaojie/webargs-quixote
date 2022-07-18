@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
-from webargs_quixote import use_args
 from marshmallow import Schema, fields
-from quixote.qwip import QWIP
 from quixote.publish import Publisher
+from quixote.qwip import QWIP
+
+from webargs_quixote import use_args
 
 app = QWIP(Publisher("example"))
 

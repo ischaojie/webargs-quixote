@@ -5,7 +5,7 @@ description = "webargs support for quixote"
 authors = ["ischaojie <zhuzhezhe95@gmail.com>"]
 license = "MIT"
 readme = "README.md"
-packages = [{include = "webargs_quixote"}]
+packages = [{ include = "webargs_quixote" }]
 
 [tool.poetry.dependencies]
 python = "^3.7"
@@ -16,6 +16,17 @@ Quixote = "3.0.4"
 pytest = "^7.1.2"
 WebTest = "^3.0.0"
 future = "^0.18.2"
+flake8 = "^4.0.1"
+isort = "^5.10.1"
+black = "^22.6.0"
+coverage = "^6.4.2"
+pytest-cov = "^3.0.0"
+
+[tool.black]
+line-length = 79
+
+[tool.isort]
+profile = "black"
 
 [build-system]
 requires = ["poetry-core"]

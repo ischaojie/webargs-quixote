@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-from quixote.qwip import QWIP
-from quixote.publish import Publisher
 from quixote.config import Config
+from quixote.publish import Publisher
+from quixote.qwip import QWIP
 
 config = Config()
 config.upload_dir = "."

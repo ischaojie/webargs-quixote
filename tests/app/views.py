@@ -1,12 +1,16 @@
 # -*- coding: utf-8 -*-
-from functools import wraps
-from webargs import fields
-from webargs_quixote import parser, use_args, use_kwargs
 import json
+from functools import wraps
+
 import marshmallow as ma
 from marshmallow.exceptions import ValidationError
+from webargs import fields
 
-hello_args = {"name": fields.Str(load_default="World", validate=lambda n: len(n) >= 3)}
+from webargs_quixote import parser, use_args, use_kwargs
+
+hello_args = {
+    "name": fields.Str(load_default="World", validate=lambda n: len(n) >= 3)
+}
 hello_multiple = {"name": fields.List(fields.Str())}
 
 
@@ -31,9 +35,9 @@ def jsonize(func):
         except ValidationError as err:
             rsp.set_status(422)
             return json.dumps({"error": err.messages})
-        except json.JSONDecodeError as err:
+        except json.JSONDecodeError:
             rsp.set_status(400)
-            return json.dumps({'json': ['Invalid JSON body.']})
+            return json.dumps({"json": ["Invalid JSON body."]})
 
     return _
 
@@ -65,7 +69,11 @@ def echo_use_args(request, args):
 
 
 @jsonize
-@use_args({"value": fields.Int()}, validate=lambda args: args["value"] > 42, location="form")
+@use_args(
+    {"value": fields.Int()},
+    validate=lambda args: args["value"] > 42,
+    location="form",
+)
 def echo_use_args_validated(request, args):
     return args
 
@@ -143,13 +151,19 @@ def echo_file(request):
 
 @jsonize
 def echo_nested(request):
-    argmap = {"name": fields.Nested({"first": fields.Str(), "last": fields.Str()})}
+    argmap = {
+        "name": fields.Nested({"first": fields.Str(), "last": fields.Str()})
+    }
     return parser.parse(argmap, request)
 
 
 @jsonize
 def echo_nested_many(request):
-    argmap = {"users": fields.Nested({"id": fields.Int(), "name": fields.Str()}, many=True)}
+    argmap = {
+        "users": fields.Nested(
+            {"id": fields.Int(), "name": fields.Str()}, many=True
+        )
+    }
     return parser.parse(argmap, request)
 
 
@@ -180,5 +194,5 @@ _q_exports = [
     "echo_file",
     "echo_nested",
     "echo_nested_many",
-    "error"
+    "error",
 ]
