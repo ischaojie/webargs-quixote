@@ -2,6 +2,13 @@
 
 [webargs](https://webargs.readthedocs.io/en/latest/index.html) support for Quixote web framework.
 
+## Install
+```shell
+pip install webargs-quixote
+# or
+poetry add webargs-quixote
+```
+
 ## Usage
 
 ```python
